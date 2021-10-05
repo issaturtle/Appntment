@@ -479,7 +479,10 @@ public class P9_5 {
                 //asks user to enter choice
                 System.out.print("Enter the type (O-Onetime, D-Daily, or M-Monthly):");
                 char cType = Character.toUpperCase(in.next().charAt(0));
-
+                while(cType != 'O' && cType != 'D' && cType != 'M') {
+                    System.out.print("Only enter O D or M: ");
+                    cType = Character.toUpperCase(in.next().charAt(0));
+                }
                 System.out.print("Enter the date (yyyy-mm-dd): ");
                 //create an instance of DateTimeFormatter to change date values from yyyy/mm/d to yyyy-mm-dd
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -511,21 +514,24 @@ public class P9_5 {
                 String strDescription = in.nextLine();
                 //replace space with -
                 strDescription= strDescription.trim();
+                String strFileDescription = "";
                 if(strDescription.contains(" ")){
-                    strDescription = strDescription.replace(" ", "-");
+                    strFileDescription = strDescription.replace(" ", "-");
                 }
-
+                else {
+                    strFileDescription = strDescription;
+                }
                 Appointments appoint = null;
                 //Check which type of appointment user want, then append into list
                 if (cType == 'O') {
                     appLists.add(new Onetimes(nYear, nMonth, nDay, strDescription));
-                    appoint = new Onetimes(nYear, nMonth, nDay, strDescription);
+                    appoint = new Onetimes(nYear, nMonth, nDay, strFileDescription);
                 } else if (cType == 'D') {
                     appLists.add(new Dailies(nYear, nMonth, nDay, strDescription));
-                    appoint = new Dailies(nYear, nMonth, nDay, strDescription);
+                    appoint = new Dailies(nYear, nMonth, nDay, strFileDescription);
                 } else if (cType == 'M') {
                     appLists.add(new Monthlies(nYear, nMonth, nDay, strDescription));
-                    appoint = new Monthlies(nYear, nMonth, nDay, strDescription);
+                    appoint = new Monthlies(nYear, nMonth, nDay, strFileDescription);
                 }
                 System.out.println("Do you want to save appointment? Y/N: ");
 
