@@ -1,0 +1,4 @@
+Daily appoitnment: daily-appointment 15-10-2021
+Onetime appointment: onetime-appointment 15-10-2021
+Monthly appointment: monthly-appointment 15-10-2021
+Monthly appointment: test-case 1-10-3030
