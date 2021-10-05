@@ -1,4 +1,10 @@
 package com.company;
+/**
+ * Hung Nguyen
+ * 013626210
+ * This program asks user to enter a string and substring before returning an index of first
+ * substring occurence
+ */
 import java.util.Scanner;
 public class E13_9 {
     /**
