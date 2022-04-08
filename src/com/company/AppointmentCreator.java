@@ -2,9 +2,7 @@ package com.company;
 
 
 /**
- * Hung Nguyen
- * 013626210
- * This program asks user to check appointment or create appointments
+ * This program allows users to create different appointment types and find appointment times.
  */
 
 import java.io.*;
@@ -19,20 +17,14 @@ import java.util.regex.Pattern;
 import java.io.FileNotFoundException;
 import java.io.File;
 
-
-
 /**
  * superclass to create appointments
  */
 class Appointments{
-    //store appointment info
     private int mDate, mMonth, mYear;
     private char cType;
-    //store appointment description
     private String mDescription;
 
-
-    //constructor for appointments
     public Appointments(int nYear, int nMonth, int nDay, String tempDes){
         this.mDate = nDay;
         this.mMonth = nMonth;
@@ -215,7 +207,7 @@ class Monthlies extends Appointments{
     }
 
     /**
-     * Return monthly appointment string
+     * Return a monthly appointment string
      * @return strMonthly
      */
     @Override
@@ -229,7 +221,7 @@ class Monthlies extends Appointments{
 /**
  * asks user to enter appointment
  */
-public class P9_5 {
+public class AppointmentCreator{
     public static final Scanner in = new Scanner(System.in);
 
     /**
@@ -263,7 +255,6 @@ public class P9_5 {
     public static int CheckDay() {
         int nDay = 0;
         int nCount = 0;
-        //create a pattern instance
         Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         //check if input is valid
         do {
