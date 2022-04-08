@@ -311,12 +311,12 @@ public class P9_5 {
                 System.out.println(String.format("%s is not valid", nMonth));
             }
             System.out.print("Enter Month: ");
-            //while user input is invalid
+
             while (!in.hasNextInt()) {
                 String strTemp = in.next();
                 Matcher m = p.matcher(strTemp);
                 boolean b = m.find();
-                //if input contains special characters
+
                 if (b) {
                     System.out.println(String.format("Special character %s is not valid", strTemp));
                     System.out.print("Enter Month: ");
@@ -355,24 +355,19 @@ public class P9_5 {
     public static boolean save(String file, Appointments appointment) throws IOException {
         //flag to check if save worked
         boolean bSave = false;
-        //add .txt into file
+
         file = file + ".txt";
-        //create filewriter instance to append into file
+
         FileWriter fwriter = new FileWriter(file, true);
-        //create printwriter instance to write to file
         PrintWriter outF = new PrintWriter(fwriter);
-        //append into file
         outF.println(appointment.getAppointment());
-        //close file
         outF.close();
 
-        //create new instance of file
         File appFile = new File(file);
-        //Scanner for reading file
         Scanner inputF = new Scanner(appFile);
 
         String strLast = "";
-        //String array to store file input
+
         String[] strTemps = new String[6];
         //store last string line and split them into array
         while(inputF.hasNextLine()){
@@ -393,13 +388,11 @@ public class P9_5 {
      * @throws FileNotFoundException
      */
     public static ArrayList<Appointments> load(String fileName) throws FileNotFoundException {
-        //add file extension
+
         fileName = fileName + ".txt";
-        //create instance of File
         File appFile = new File(fileName);
         //array to store string input
         String[] temp;
-        //array list of all appointments
         ArrayList<Appointments> data = new ArrayList<Appointments>();
         //appointments counter
         int i = 0;
@@ -408,24 +401,16 @@ public class P9_5 {
             Scanner inputF = new Scanner(appFile);
 
             String strLine = "";
-            //while looping through file
             while (inputF.hasNextLine()) {
-                //store nextline into string
                 strLine = inputF.nextLine();
-                //split string into array
                 temp = strLine.split(" ");
-                //store type into string
                 String strType = temp[0].trim();
-                //store description
                 String strDescription = temp[2].trim();
-                //replace - with space
                 strDescription = strDescription.replace('-', ' ');
-                //split date into month day and year
                 String[] nDate = temp[3].trim().split("-");
                 int nDay = Integer.parseInt(nDate[0]);
                 int nMonth = Integer.parseInt(nDate[1]);
                 int nYear = Integer.parseInt(nDate[2]);
-                //create new instances of appointments
                 if (strType.equals("Monthly") ) {
                     data.add(new Monthlies(nYear, nMonth, nDay, strDescription));
                 } else if (strType.equals("Daily") ) {
@@ -454,29 +439,19 @@ public class P9_5 {
      * @param args
      */
     public static void main(String[] args) throws FileNotFoundException {
-
-//        ArrayList<Appointments> appLists = load("appointments");
-//        for (int i = 0; i < appLists.size(); i++) {
-//            System.out.println(appLists.get(i).getAppointment());
-//        }
-
-
         boolean bRepeat = true;
         //create array list of appointments
         ArrayList<Appointments> appLists = new ArrayList<Appointments>();
-        //store user input
         char cInput = 1;
-        //while user doesn't enter q
         while (cInput != 'Q') {
             //while(cInput != 'Q' || cInput != 'A' || cInput)
             System.out.print("Select an option: A for add an appointment, C for checking, L to load, Q to quit: ");
-            //read user input and store the first uppercase character
             String strInput = in.next();
             cInput = strInput.charAt(0);
             cInput = Character.toUpperCase(cInput);
-            //if user choose A
+
             if (cInput == 'A') {
-                //asks user to enter choice
+
                 System.out.print("Enter the type (O-Onetime, D-Daily, or M-Monthly):");
                 char cType = Character.toUpperCase(in.next().charAt(0));
                 while(cType != 'O' && cType != 'D' && cType != 'M') {
@@ -495,24 +470,16 @@ public class P9_5 {
                         strInput = String.valueOf(localDate);
                     }
                 }
-               // LocalDate localDate = LocalDate.parse(strInput, format);
-
-                //store formatted date into strInput
-                //strInput = String.valueOf(localDate);
-                //store year into nYear
                 int nYear = Integer.parseInt(strInput.substring(0, strInput.indexOf('-')));
                 //find next numbers after -
                 strInput = moveStringIndex(strInput);
-                //store into month
                 int nMonth = Integer.parseInt(strInput.substring(0, strInput.indexOf('-')));
-                //find next numbers after -
                 strInput = moveStringIndex(strInput);
-                //store number after last -
                 int nDay = Integer.parseInt(strInput);
                 in.nextLine();
                 System.out.print("Enter the description: ");
                 String strDescription = in.nextLine();
-                //replace space with -
+
                 strDescription= strDescription.trim();
                 String strFileDescription = "";
                 if(strDescription.contains(" ")){
@@ -535,17 +502,14 @@ public class P9_5 {
                 }
                 System.out.println("Do you want to save appointment? Y/N: ");
 
+                //save event into appointment
                 char cSave = 1;
                 String strChoice = "";
                 strChoice = in.next();
-                //store first letter of string into a capitalized char
                 cSave = strChoice.charAt(0);
                 cSave = Character.toUpperCase(cSave);
-                //while character is not y and n
                 while (cSave != 'Y' && cSave != 'N') {
-                    //while(cInput != 'Q' || cInput != 'A' || cInput)
                     System.out.print("Choose only Y or N: ");
-                    //read user input and store the first uppercase character
                     strChoice = in.next();
                     cSave = strChoice.charAt(0);
                     cSave = Character.toUpperCase(cSave);
@@ -571,10 +535,10 @@ public class P9_5 {
                     System.out.println("appointment not saved, only one time use");
                 }
 
-            } else if (cInput == 'C') { // let user check which appointments are available
+            } else if (cInput == 'C') {
                 String strYear = "";
                 bRepeat = true;
-                //while user wrong inputs
+
                 while (bRepeat) {
                     try {
                         System.out.print("Enter Year (numbers>=0): ");
@@ -584,14 +548,12 @@ public class P9_5 {
                             continue;
                         }
                         bRepeat = false;
-                    } catch (NumberFormatException e) { //if user entered any other value than integer
-                        //an array list to store wrong inputs
+                    } catch (NumberFormatException e) {
                         ArrayList<Character> arrChars = new ArrayList<Character>();
                         arrChars = CheckValid(strYear);
-                        //if List is not empty
+
                         if (!arrChars.isEmpty()) {
                             System.out.print("Please dont enter: ");
-                            //print list
                             for (char cTemp : arrChars) {
                                 System.out.print(String.format(" %c", cTemp));
                             }
@@ -600,27 +562,23 @@ public class P9_5 {
                         in.nextLine();
                     }
                 }
-                //asks user to enter day
-                int nDay = CheckDay();
-                //asks user to enter month
-                int nMonth = CheckMonth();
-                //if there are appointments
-                if(!appLists.isEmpty()) {
 
+                //get date to check for appointments in the list
+                int nDay = CheckDay();
+                int nMonth = CheckMonth();
+                if(!appLists.isEmpty()) {
                     //check if appointments fit the dates
                     for (int i = 0; i < appLists.size(); i++) {
                         if (appLists.get(i).occursOn(Integer.parseInt(strYear), nMonth, nDay) == true) {
                             System.out.println(appLists.get(i).getAppointment());
-
                         }
                     }
-
                     System.out.println("Checking finished");
-                } //if there aren't any appointments
+                }
                 else {
                     System.out.println("No Appointment set");
                 }
-            }
+            } //choice to load appointments from file into list
             else if (cInput == 'L') {
                 appLists = load("appointments");
                 if (appLists.size() != 0){
@@ -629,9 +587,9 @@ public class P9_5 {
                     System.out.println();
                 }
             }
-            else if (cInput == 'Q') { //end program if user enters Q
+            else if (cInput == 'Q') {
                 System.out.println("End");
-            } else{ //if user enter wrong choices
+            } else{
                 System.out.println("Please enter correct choice");
             }
         }
